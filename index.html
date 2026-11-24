@@ -13,4 +13,368 @@ nav{align-items:center}.brand img{width:245px;display:block}header{position:rela
 <section id="roadmap"><div class="eyebrow">08 / Execution strategy</div><h2>A 90-day validation roadmap.</h2><div class="timeline"><div class="phase"><b>Days 01–20</b><h3>Discovery</h3><p>Map tasks, interview staff, measure manual baseline.</p><small>Exit: documented problem and data access.</small></div><div class="phase"><b>Days 21–45</b><h3>Prototype</h3><p>Build a limited retrieval workflow and offline evaluation set.</p><small>Exit: reviewed test results and controls.</small></div><div class="phase"><b>Days 46–70</b><h3>Controlled pilot</h3><p>Test with authorized staff; track errors, overrides and time.</p><small>Exit: evidence against agreed criteria.</small></div><div class="phase"><b>Days 71–90</b><h3>Investment review</h3><p>Compare baseline, cost, adoption and residual risks.</p><small>Exit: proceed, revise or stop.</small></div></div><h3 style="margin-top:32px">Decision gates</h3><details><summary>Customer value and workflow fit</summary><p>Require observed workflow friction and a measurable improvement against the existing process.</p></details><details><summary>Data and technical feasibility</summary><p>Confirm permissioned access, document coverage, repeatable evaluation and reliable fallback.</p></details><details><summary>Risk and commercial viability</summary><p>Require approved safety controls and a credible cost model. Escalate unresolved material risks before expanding.</p></details></section><section><div class="eyebrow">09 / Executive perspective</div><h2>Prioritization is not proof.</h2><p>The interactive model identifies a candidate for further discovery under a chosen set of assumptions. It does not authorize a launch. A defensible investment decision requires real customer evidence, permissioned data, independent evaluation and explicit acceptance criteria.</p><a href="https://blairyfairy.github.io/BlairPage/">Explore my professional portfolio →</a></section></main><footer>Blair Page · AI product strategy portfolio · Interactive strategy case study.</footer><script>
 const criteria=['Workflow value','Data readiness','Delivery effort (higher = easier)','Risk manageability','Adoption potential'];const defaults=[30,20,15,20,15];const names=['Intake assistant','Demand planner','Service desk copilot'];const ratings=[[5,4,3,3,4],[4,2,2,4,3],[3,5,4,4,4]];const controls=document.getElementById('controls');criteria.forEach((c,i)=>{const d=document.createElement('div');d.className='control';d.innerHTML=`<label for="w${i}">${c}</label><output id="o${i}"></output><input id="w${i}" type="range" min="0" max="50" value="${defaults[i]}">`;controls.append(d);d.querySelector('input').addEventListener('input',update)});document.getElementById('matrix').innerHTML='<thead><tr><th>Criterion</th>'+names.map(n=>`<th>${n}</th>`).join('')+'</tr></thead><tbody>'+criteria.map((c,i)=>'<tr><td>'+c+'</td>'+ratings.map(r=>`<td>${r[i]}</td>`).join('')+'</tr>').join('')+'</tbody>';function update(){const w=criteria.map((_,i)=>+document.getElementById('w'+i).value);const total=w.reduce((a,b)=>a+b,0);w.forEach((v,i)=>document.getElementById('o'+i).textContent=total?(100*v/total).toFixed(0)+'%':'0%');const scores=ratings.map(r=>total?r.reduce((s,v,i)=>s+v*w[i],0)/total:0);document.getElementById('results').innerHTML=names.map((n,i)=>`<p>${n}<br><strong class="score">${total?scores[i].toFixed(2):'—'}</strong> / 5</p><div class="bar"><span style="width:${scores[i]*20}%"></span></div>`).join('');const max=Math.max(...scores);document.getElementById('leader').textContent=total?'Leading candidate(s): '+names.filter((_,i)=>Math.abs(scores[i]-max)<1e-9).join(', '):'Choose at least one nonzero weight.'}document.getElementById('reset').onclick=()=>{defaults.forEach((v,i)=>document.getElementById('w'+i).value=v);update()};update();
 document.querySelectorAll('[data-preset]').forEach(b=>b.onclick=()=>{b.dataset.preset.split(',').forEach((v,i)=>document.getElementById('w'+i).value=v);update()});document.getElementById('export').onclick=()=>{const w=criteria.map((_,i)=>+document.getElementById('w'+i).value),t=w.reduce((a,b)=>a+b,0);const rows=[['Criterion','Raw weight',...names],...criteria.map((c,i)=>[c,w[i],...ratings.map(r=>r[i])]),['Weighted score','',...ratings.map(r=>t?(r.reduce((a,v,i)=>a+v*w[i],0)/t).toFixed(3):'N/A')]];const u=URL.createObjectURL(new Blob([rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\n')],{type:'text/csv'}));const a=document.createElement('a');a.href=u;a.download='opportunity-model.csv';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)};const ids=['tasks','minutes','labor','adoption','cost','setup'];function economics(){const [n,m,l,a,c,s]=ids.map(id=>Math.max(0,+document.getElementById(id).value||0));const h=n*m*Math.min(a,100)/6000,g=h*l,net=g-c;const money=v=>v.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});document.getElementById('econ').innerHTML=`<div class="kpi"><small>Monthly capacity released</small><strong>${h.toFixed(1)} hrs</strong></div><div class="kpi"><small>Monthly net modeled benefit</small><strong>${money(net)}</strong></div><div class="kpi"><small>Year-one net benefit after setup</small><strong>${money(net*12-s)}</strong></div><div class="kpi"><small>Simple payback</small><strong>${net>0?(s/net).toFixed(1)+' mo':'Not reached'}</strong></div>`}ids.forEach(id=>document.getElementById(id).addEventListener('input',economics));economics();
-</script></body></html>
+</script>
+<!-- PORTABLE FLOATING YOUTUBE VIDEO PLAYER -->
+<script>
+(function () {
+  const VIDEO_ID = 'Z3NQYZ-EBpY';
+  const MOBILE_BP = 900;
+
+  const PLAYER_ID = 'portable-video-player-2';
+  const BUTTON_ID = 'portable-video-button-2';
+  const FRAME_ID = 'portable-video-frame-2';
+  const STYLE_ID = 'portable-video-player-style-2';
+
+  function buildSrc(muted) {
+    return (
+      'https://www.youtube.com/embed/' + VIDEO_ID +
+      '?autoplay=1' +
+      '&mute=' + (muted ? '1' : '0') +
+      '&controls=1' +
+      '&loop=1' +
+      '&playlist=' + VIDEO_ID +
+      '&playsinline=1'
+    );
+  }
+
+  function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+  }
+
+  function removeOld() {
+    document.getElementById(PLAYER_ID)?.remove();
+    document.getElementById(BUTTON_ID)?.remove();
+    document.getElementById(STYLE_ID)?.remove();
+  }
+
+  function injectStyle() {
+    const style = document.createElement('style');
+    style.id = STYLE_ID;
+    style.textContent = `
+      #${PLAYER_ID} {
+        position: fixed !important;
+        left: 20px !important;
+        bottom: 80px !important;
+        width: 260px !important;
+        height: auto !important;
+        aspect-ratio: 16 / 9 !important;
+        z-index: 10000 !important;
+        border-radius: 12px !important;
+        overflow: hidden !important;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.6) !important;
+        background: #000 !important;
+        touch-action: none !important;
+        display: none !important;
+      }
+
+      #${BUTTON_ID} {
+        position: fixed !important;
+        left: 20px !important;
+        bottom: 20px !important;
+        width: 52px !important;
+        height: 52px !important;
+        z-index: 10001 !important;
+        border-radius: 50% !important;
+        border: 1px solid rgba(240,239,244,0.35) !important;
+        background: rgba(58,62,59,0.72) !important;
+        color: #fff !important;
+        cursor: pointer !important;
+        font-size: 1.15rem !important;
+        font-weight: 700 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.45) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+      }
+
+      @media (max-width: 900px) {
+        #${PLAYER_ID} {
+          width: min(260px, calc(100vw - 40px)) !important;
+          max-width: calc(100vw - 24px) !important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function create() {
+    if (document.getElementById(BUTTON_ID)) return;
+
+    removeOld();
+    injectStyle();
+
+    const player = document.createElement('div');
+    player.id = PLAYER_ID;
+
+    const button = document.createElement('button');
+    button.id = BUTTON_ID;
+    button.type = 'button';
+
+    let phase = 'closed';
+    let dragging = false;
+    let startX = 0;
+    let startY = 0;
+    let originLeft = 0;
+    let originTop = 0;
+
+    function updateButtonVisual() {
+      if (phase === 'closed') {
+        button.textContent = '▶';
+        button.setAttribute('aria-label', 'Open and play video');
+        button.setAttribute('title', 'Open and play video');
+      }
+
+      if (phase === 'muted') {
+        button.textContent = '🔊';
+        button.setAttribute('aria-label', 'Unmute video');
+        button.setAttribute('title', 'Unmute video');
+      }
+
+      if (phase === 'unmuted') {
+        button.textContent = '🔇';
+        button.setAttribute('aria-label', 'Mute video');
+        button.setAttribute('title', 'Mute video');
+      }
+
+      if (phase === 'muted-ready-close') {
+        button.textContent = '✕';
+        button.setAttribute('aria-label', 'Close video');
+        button.setAttribute('title', 'Close video');
+      }
+    }
+
+    function renderIframe(muted) {
+      player.innerHTML = `
+        <iframe
+          title="Floating YouTube video"
+          style="display:block;border:0;position:absolute;inset:0;"
+          id="${FRAME_ID}"
+          width="100%"
+          height="100%"
+          src="${buildSrc(muted)}"
+          frameborder="0"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+
+        <div
+          class="portable-video-drag"
+          aria-hidden="true"
+          style="
+            position:absolute;
+            top:0;
+            left:0;
+            right:0;
+            height:14px;
+            cursor:grab;
+            touch-action:none;
+            background:rgba(0,0,0,.25);
+          ">
+        </div>
+      `;
+    }
+
+    function openMuted() {
+      phase = 'muted';
+
+      player.style.setProperty('display', 'block', 'important');
+
+      if (!player.style.top || player.style.top === 'auto') {
+        player.style.setProperty('left', '20px', 'important');
+        player.style.setProperty('bottom', '78px', 'important');
+        player.style.top = 'auto';
+      }
+
+      renderIframe(true);
+      updateButtonVisual();
+
+      const rect = player.getBoundingClientRect();
+      placeButton(rect.left, rect.top);
+    }
+
+    function unmute() {
+      phase = 'unmuted';
+      player.style.setProperty('display', 'block', 'important');
+      renderIframe(false);
+      updateButtonVisual();
+    }
+
+    function muteReadyClose() {
+      phase = 'muted-ready-close';
+      player.style.setProperty('display', 'block', 'important');
+      renderIframe(true);
+      updateButtonVisual();
+    }
+
+    function closeCompletely() {
+      phase = 'closed';
+
+      player.innerHTML = '';
+      player.style.setProperty('display', 'none', 'important');
+
+      updateButtonVisual();
+
+      button.style.setProperty('left', '20px', 'important');
+      button.style.right = 'auto';
+      button.style.setProperty('bottom', '20px', 'important');
+      button.style.top = 'auto';
+    }
+
+    function placeButton(left, top) {
+      if (phase === 'closed') {
+        button.style.setProperty('left', '20px', 'important');
+        button.style.right = 'auto';
+        button.style.setProperty('bottom', '20px', 'important');
+        button.style.top = 'auto';
+        return;
+      }
+
+      const rect = player.getBoundingClientRect();
+
+      button.style.setProperty('left', left + 'px', 'important');
+      button.style.top = (top + rect.height + 8) + 'px';
+      button.style.setProperty('bottom', 'auto', 'important');
+    }
+
+    button.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (phase === 'closed') {
+        openMuted();
+        return;
+      }
+
+      if (phase === 'muted') {
+        unmute();
+        return;
+      }
+
+      if (phase === 'unmuted') {
+        muteReadyClose();
+        return;
+      }
+
+      if (phase === 'muted-ready-close') {
+        closeCompletely();
+        return;
+      }
+    });
+
+    function startDrag(x, y) {
+      if (window.innerWidth > MOBILE_BP || phase === 'closed') return;
+
+      const rect = player.getBoundingClientRect();
+
+      dragging = true;
+      startX = x;
+      startY = y;
+      originLeft = rect.left;
+      originTop = rect.top;
+    }
+
+    function moveDrag(x, y) {
+      if (!dragging) return;
+
+      const rect = player.getBoundingClientRect();
+
+      const nextLeft = clamp(
+        originLeft + (x - startX),
+        8,
+        window.innerWidth - rect.width - 8
+      );
+
+      const nextTop = clamp(
+        originTop + (y - startY),
+        8,
+        window.innerHeight - rect.height - 68
+      );
+
+      player.style.setProperty('left', nextLeft + 'px', 'important');
+      player.style.top = nextTop + 'px';
+      player.style.setProperty('bottom', 'auto', 'important');
+
+      placeButton(nextLeft, nextTop);
+    }
+
+    function endDrag() {
+      dragging = false;
+    }
+
+    player.addEventListener(
+      'touchstart',
+      e => startDrag(e.touches[0].clientX, e.touches[0].clientY),
+      { passive: true }
+    );
+
+    player.addEventListener(
+      'touchmove',
+      e => moveDrag(e.touches[0].clientX, e.touches[0].clientY),
+      { passive: true }
+    );
+
+    player.addEventListener('touchend', endDrag);
+    player.addEventListener('touchcancel', endDrag);
+
+    player.addEventListener(
+      'mousedown',
+      e => startDrag(e.clientX, e.clientY)
+    );
+
+    window.addEventListener(
+      'mousemove',
+      e => moveDrag(e.clientX, e.clientY)
+    );
+
+    window.addEventListener('mouseup', endDrag);
+
+    document.body.appendChild(player);
+    document.body.appendChild(button);
+
+    if (window.innerWidth <= MOBILE_BP) {
+      const left = 20;
+      const top = Math.max(8, window.innerHeight - 220);
+
+      player.style.setProperty('left', left + 'px', 'important');
+      player.style.top = top + 'px';
+      player.style.setProperty('bottom', 'auto', 'important');
+    }
+
+    window.addEventListener('resize', function () {
+      if (phase === 'closed') return;
+
+      const r = player.getBoundingClientRect();
+
+      const x = clamp(
+        r.left,
+        8,
+        Math.max(8, innerWidth - r.width - 8)
+      );
+
+      const y = clamp(
+        r.top,
+        8,
+        Math.max(8, innerHeight - r.height - 68)
+      );
+
+      player.style.setProperty('left', x + 'px', 'important');
+      player.style.top = y + 'px';
+      player.style.setProperty('bottom', 'auto', 'important');
+
+      placeButton(x, y);
+    });
+
+    closeCompletely();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', create);
+  } else {
+    create();
+  }
+})();
+</script>
+<!-- END PORTABLE FLOATING YOUTUBE VIDEO PLAYER -->
+</body></html>
